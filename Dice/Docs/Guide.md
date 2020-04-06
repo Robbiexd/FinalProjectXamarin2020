@@ -1,5 +1,5 @@
 # Kostka pro Xamarin
-Pro naši první aplikaci napsanou pro Xamarin si ukážeme jednoduchý generátor náhodných čísel fungující jako kostka s volbou velikosti.
+Pro naši první aplikaci napsanou pro Xamarin si ukážeme jednoduchý generátor náhodných čísel fungující jako kostka s volbou počtu stran.
 Vzhledem k tomu, že ekvivalentní program máme v UWP, upozorním jen na rozdíly mezi UWP a Xamarin.
 
 Cílem příkladu je ukázat si implementaci architektury MVVM v Xamarinu a že se od nám známého UWP příliš neliší.
