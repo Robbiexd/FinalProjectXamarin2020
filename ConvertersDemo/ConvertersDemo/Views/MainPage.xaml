@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:viewmodels="clr-namespace:ConvertersDemo.ViewModels"
+             xmlns:converters="clr-namespace:ConvertersDemo.Converters"
+             x:Class="ConvertersDemo.Views.MainPage">
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IntToCityNameConverter x:Key="intToName" />
+            <converters:IntToImageConverter x:Key="intToPicture" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Image 
+                Source="{Binding Index, Converter={StaticResource intToPicture}}" 
+                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                AbsoluteLayout.LayoutFlags="All" />
+            <Label 
+                Text="{Binding Index, Converter={StaticResource intToName}}" 
+                AbsoluteLayout.LayoutBounds = ".5,.5,.5,1" 
+                AbsoluteLayout.LayoutFlags="All" 
+                HorizontalTextAlignment="Center" 
+                TextColor="Black" 
+                BackgroundColor="Transparent"
+                />
+            <Button 
+                Text="Previous" 
+                AbsoluteLayout.LayoutBounds="0,1,.5,60"
+                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                BackgroundColor="White" 
+                TextColor="Green" 
+                BorderRadius="0" 
+                Command="{Binding Previous}"    
+                />
+            <Button 
+                Text="Next" 
+                AbsoluteLayout.LayoutBounds="1,1,.5,60"
+                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional" 
+                BackgroundColor="White"
+                TextColor="Green" 
+                BorderRadius="0" 
+                Command="{Binding Next}" 
+                />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
