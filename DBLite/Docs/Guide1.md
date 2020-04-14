@@ -179,3 +179,5 @@ protected override void OnAppearing()
     }
 }
 ````
+## BaseViewModel
+Protože tato aplikace bude mít několik ViewModelů jsou jeji společné části kódu uloženy do společného rodiče [BaseViewModel.cs](../DBLite/ViewModels/BaseViewModel.cs).
