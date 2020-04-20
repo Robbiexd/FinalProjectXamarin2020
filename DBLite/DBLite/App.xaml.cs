@@ -15,7 +15,6 @@ namespace DBLite
         {
             InitializeComponent();
             Db = new AppDbContext(dbPath);
-            //DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
 

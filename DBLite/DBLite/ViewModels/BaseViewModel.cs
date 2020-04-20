@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DBLite.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {

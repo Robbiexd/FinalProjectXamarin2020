@@ -5,13 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewmodels="clr-namespace:DBLite.ViewModels"
              mc:Ignorable="d"
-             Title="List"
+             Title="{Binding Title}"
              x:Class="DBLite.Views.ItemsPage">
     <ContentPage.BindingContext>
         <viewmodels:ListViewModel />
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" />
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>

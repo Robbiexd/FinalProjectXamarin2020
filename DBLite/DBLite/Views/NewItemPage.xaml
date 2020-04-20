@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:DBLite.Views"
+             xmlns:behaviors="clr-namespace:DBLite.Views.Behaviors"
+             mc:Ignorable="d"
+             Title="New student"
+             x:Name="NewItemView"
+             x:Class="DBLite.Views.NewItemPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Id:" />
+            <Entry x:Name="IdEntry" BindingContext="{x:Reference Name=NewItemView}" Text="{Binding Student.Id}" Placeholder="adanovo">
+                <Entry.Behaviors>
+                    <behaviors:IsEmptyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Firstname:" />
+            <Entry BindingContext="{x:Reference Name=NewItemView}" Text="{Binding Student.Firstname}" Placeholder="Adam">
+                <Entry.Behaviors>
+                    <behaviors:IsEmptyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Lastname:" />
+            <Entry BindingContext="{x:Reference Name=NewItemView}" Text="{Binding Student.Lastname}" Placeholder="Novotný">
+                <Entry.Behaviors>
+                    <behaviors:IsEmptyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Classroom:" />
+            <Picker BindingContext="{x:Reference Name=NewItemView}" x:Name="ClassPicker" Title="Choose a Classroom"></Picker>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

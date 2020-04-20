@@ -1,4 +1,6 @@
 ﻿using DBLite.Models;
+using DBLite.Services;
+using DBLite.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,16 +11,19 @@ using Xamarin.Forms;
 
 namespace DBLite.ViewModels
 {
-    class ListViewModel : BaseViewModel
+    public class ListViewModel : BaseViewModel
     {
         private ObservableCollection<Student> _students = new ObservableCollection<Student>();
+        private ObservableCollection<Classroom> _classrooms = new ObservableCollection<Classroom>();
         private AppDbContext _db;
 
         public Command LoadCommand { get; set; }
+        public Command LoadClassesCommand { get; set; }
 
         public ListViewModel()
         {
             _db = App.Db;
+            Title = "List";
             LoadCommand = new Command(
                 async () => {
                     IsBusy = true;
@@ -26,12 +31,33 @@ namespace DBLite.ViewModels
                     IsBusy = false;
                 }
             );
+            LoadClassesCommand = new Command(
+                async () => {
+                    IsBusy = true;
+                    Classrooms = new ObservableCollection<Classroom>(await _db.GetClassroomsAsync());
+                    IsBusy = false;
+                }
+            );
+            MessagingCenter.Subscribe<NewItemPage>(this, "UpdateStudents", (sender) =>
+            {
+                LoadCommand.Execute(null);
+            });
+            MessagingCenter.Subscribe<NewItemPage, Student>(this, "AddStudent", async (sender, student) =>
+            {
+                if (!await _db.AddItemAsync(student))
+                    MessagingCenter.Send(this, "ShowAlert", "Adding of new student was not successful.");
+            });
         }
 
         public ObservableCollection<Student> Students
         {
             get { return _students; }
             set { SetProperty(ref _students, value); }
-        }      
+        }
+        public ObservableCollection<Classroom> Classrooms
+        {
+            get { return _classrooms; }
+            set { SetProperty(ref _classrooms, value); }
+        }
     }
 }

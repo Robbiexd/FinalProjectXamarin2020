@@ -1,4 +1,5 @@
-﻿using DBLite.Services;
+﻿using DBLite.Models;
+using DBLite.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBLite.Models
+namespace DBLite.Services
 {
     public class AppDbContext : DbContext, IDataStore<Student>
     {
@@ -46,6 +47,8 @@ namespace DBLite.Models
             modelBuilder.Entity<Student>().HasData(new Student { Id = "pethora", Firstname = "Petr", Lastname = "Horák", ClassroomId = "P3" });
             modelBuilder.Entity<Student>().HasData(new Student { Id = "adaanto", Firstname = "Adam", Lastname = "Antoš", ClassroomId = "P2" });
             modelBuilder.Entity<Student>().HasData(new Student { Id = "marbaum", Firstname = "Marek", Lastname = "Baumann", ClassroomId = "P2" });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = "olibene", Firstname = "Oliver", Lastname = "Beneš", ClassroomId = "P2" });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = "ondbedn", Firstname = "Ondřej", Lastname = "Bednář", ClassroomId = "P2" });
             modelBuilder.Entity<Student>().HasData(new Student { Id = "matandr", Firstname = "Matěj", Lastname = "Andráško", ClassroomId = "P1" });
         }
 
@@ -54,6 +57,7 @@ namespace DBLite.Models
             try
             {
                 await Students.AddAsync(item);
+                await SaveChangesAsync();
                 return true;
             }
             catch
@@ -97,7 +101,7 @@ namespace DBLite.Models
 
         public async Task<Student> GetItemAsync(string id)
         {
-            var student = await Students.FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
+            var student = await Students.Include(s => s.Classroom).FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
             return student;
         }
 
@@ -105,6 +109,65 @@ namespace DBLite.Models
         {
             var allStudents = await Students.Include(s => s.Classroom).ToListAsync();
             return allStudents;
+        }
+
+        public async Task<bool> AddClassroomAsync(Classroom item)
+        {
+            try
+            {
+                await Classrooms.AddAsync(item);
+                await SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateClassroomAsync(Classroom item)
+        {
+            try
+            {
+                Classrooms.Update(item);
+                await SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteClassroomAsync(string id)
+        {
+            try
+            {
+                var classroom = await Classrooms.FirstOrDefaultAsync(s => s.Id == id);
+                if (classroom != null)
+                {
+                    Classrooms.Remove(classroom);
+                }
+
+                await SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<Classroom> GetClassroomAsync(string id)
+        {
+            var classroom = await Classrooms.FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
+            return classroom;
+        }
+
+        public async Task<IEnumerable<Classroom>> GetClassroomsAsync(bool forceRefresh = false)
+        {
+            var allClassrooms = await Classrooms.ToListAsync();
+            return allClassrooms;
         }
     }
 }

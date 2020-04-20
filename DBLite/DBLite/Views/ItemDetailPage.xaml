@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:DBLite.ViewModels"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="DBLite.Views.ItemDetailPage">
+    <ContentPage.BindingContext>
+        <viewmodels:DetailViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Id:" />
+            <Label Text="{Binding Student.Id}" d:Text="Student firstname" FontAttributes="Bold" />
+            <Label Text="Firstname:" />
+            <Label Text="{Binding Student.Firstname}" d:Text="Student firstname" FontAttributes="Bold" />
+            <Label Text="Lastname:" />
+            <Label Text="{Binding Student.Lastname}" d:Text="Student lastname" FontAttributes="Bold" />
+            <Label Text="Classname:" />
+            <Label Text="{Binding Student.Classroom.Name}" d:Text="Classroom Name" FontAttributes="Bold" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

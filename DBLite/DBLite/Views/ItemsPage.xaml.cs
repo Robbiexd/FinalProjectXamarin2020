@@ -37,9 +37,18 @@ namespace DBLite.Views
             if (item == null)
                 return;
 
-            //await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new ItemDetailPage(new DetailViewModel(item)));
 
             ItemsListView.SelectedItem = null;
+        }
+
+        async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(
+                new NavigationPage(
+                    new NewItemPage(_vm)
+                )
+            );
         }
     }
 }
