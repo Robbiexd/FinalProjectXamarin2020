@@ -14,3 +14,61 @@ Mezi drobnými vylepšeními, které je potřeba udělat jsou:
 ## Formulář pro vkládání dat
 Začneme na stránce [../DBLite/Views/NewItemPage.xaml], kam musí přijít vstupní pole pro naše data - Entry a Picker. Stránka nebude mít vlastní ViewModel, bude získávat data z ListViewModelu.
 Co bude potřebovat? Bude nutné ji předat seznam tříd. Ten máme k dispozici v [ListViewModelu](../DBLite/ViewModels/ListViewModel.cs) a také v [ItemsPage](../DBLite/Views/ItemsPage.xaml). Předávat je potřebujeme po stisknutí tlašítka "Add".
+````
+async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            _vm.LoadClassesCommand.Execute(null);
+            Dictionary<int, string> classroomList = new Dictionary<int, string>();
+            foreach(var cr in _vm.Classrooms)
+            {
+                classroomList.Add(cr.Id,cr.Name);
+            }
+            await Navigation.PushModalAsync(
+                new NavigationPage(
+                    new NewItemPage(classroomList)
+                )
+            );
+        }
+````
+Zde získáme z ViewModelu vm seznam tříd a vytvoříme z něj Dictionary obsahující jen data, která potřebujeme. Pak přesuneme na modálně otevřenou stránku NewItemPage, které tato data předáme. NewItemPage je získá v kostruktoru.
+````
+public NewItemPage(Dictionary<int, string> classroomsList)
+        {           
+            InitializeComponent();
+            Title = "Add new student";
+            _classrooms = classroomsList;
+            _classIndexes.Clear();
+            Classes.Clear();
+            foreach (var cr in classroomsList)
+            {
+                Classes.Add(cr.Value);
+                _classIndexes.Add(cr.Key);
+            }
+        }
+ ````
+ Vytvoří z nich dva Listy, jeden Classes s názvy tříd bude nabindovaný přímo do Pickeru. (Picker umí obsahovat jen seznam řetězců, které má obsahovat.) Druhý list classIndexes bude obsahovat odpovídající Id tříd. 
+ 
+ Do ostatních polí formuláře budeme bindovat přímo objekt typu Student. Bindování funguje bez ViewModelu proto, protože samotná ContextPage implementuje interface INotifyChanges. Jen je potřeba říct přes  ``BindingContext="{x:Reference Name=NewItemView}" ``, kde je nutné definovat zde použitý název bindované stránky ContextPage přes ``x:Name="NewItemView"``.
+ 
+Samozřejmě před uložením dat bude potřeba převést SelectedClassroom (což je index prvku vybraného v Pickeru) na skutečné číslo třídy.
+````
+async void Save_Clicked(object sender, EventArgs e)
+        {
+            if (
+                String.IsNullOrEmpty(Student.Firstname) || 
+                String.IsNullOrEmpty(Student.Lastname) || 
+                SelectedClassroom == null
+               )
+            {
+                await DisplayAlert("Warning", "Incomplete data", "Ok");
+            }
+            else
+            {
+                Student.ClassroomId = _classIndexes[(int)SelectedClassroom];
+                MessagingCenter.Send(this, "AddStudent", Student);
+                MessagingCenter.Send(this, "UpdateStudents");
+                await Navigation.PopModalAsync();
+            }           
+        }
+````
+Zároveň ověříme validitu dat. Protože jsme tuto stránku otevírali přes ``await Navigation.PushModalAsync(`` vracet se z ní budeme přes  ``await Navigation.PopModalAsync(); ``, která modální okno zavře. 
