@@ -42,10 +42,19 @@ namespace DBLite.ViewModels
             {
                 LoadCommand.Execute(null);
             });
+            MessagingCenter.Subscribe<ItemDetailPage>(this, "UpdateStudents", (sender) =>
+            {
+                LoadCommand.Execute(null);
+            });
             MessagingCenter.Subscribe<NewItemPage, Student>(this, "AddStudent", async (sender, student) =>
             {
                 if (!await _db.AddItemAsync(student))
-                    MessagingCenter.Send(this, "ShowAlert", "Adding of new student was not successful.");
+                    MessagingCenter.Send(this, "ShowAlert", "There was an error.");
+            });
+            MessagingCenter.Subscribe<ItemDetailPage, int>(this, "DeleteStudent", async (sender, id) =>
+            {
+                if (!await _db.DeleteItemAsync(id))
+                    MessagingCenter.Send(this, "ShowAlert", "There was an error.");
             });
         }
 

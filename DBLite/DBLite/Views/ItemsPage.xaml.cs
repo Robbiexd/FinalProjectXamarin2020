@@ -44,9 +44,15 @@ namespace DBLite.Views
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
+            _vm.LoadClassesCommand.Execute(null);
+            Dictionary<int, string> classroomList = new Dictionary<int, string>();
+            foreach(var cr in _vm.Classrooms)
+            {
+                classroomList.Add(cr.Id,cr.Name);
+            }
             await Navigation.PushModalAsync(
                 new NavigationPage(
-                    new NewItemPage(_vm)
+                    new NewItemPage(classroomList)
                 )
             );
         }

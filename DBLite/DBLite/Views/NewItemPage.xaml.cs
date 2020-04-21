@@ -15,15 +15,24 @@ namespace DBLite.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        private List<string> _classIndexes = new List<string>();
-        private ListViewModel _vm;
+        private List<int> _classIndexes = new List<int>();
+        private Dictionary<int,string> _classrooms;
         public Student Student { get; set; } = new Student();
+        public ObservableCollection<string> Classes { get; set; } = new ObservableCollection<string>();
 
-        public NewItemPage(ListViewModel vm)
+        public int? SelectedClassroom { get; set; }
+        public NewItemPage(Dictionary<int, string> classroomsList)
         {           
             InitializeComponent();
-            Title = "Add Student";
-            _vm = vm;
+            Title = "Add new student";
+            _classrooms = classroomsList;
+            _classIndexes.Clear();
+            Classes.Clear();
+            foreach (var cr in classroomsList)
+            {
+                Classes.Add(cr.Value);
+                _classIndexes.Add(cr.Key);
+            }
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)
@@ -32,23 +41,21 @@ namespace DBLite.Views
         }
         async void Save_Clicked(object sender, EventArgs e)
         {
-            Student.ClassroomId = "L1";
-            MessagingCenter.Send(this, "AddStudent", Student);
-            MessagingCenter.Send(this, "UpdateStudents");
-            await Navigation.PopModalAsync();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            _vm.LoadClassesCommand.Execute(null);
-            _classIndexes.Clear();
-            ClassPicker.Items.Clear();
-            foreach (var cr in _vm.Classrooms)
+            if (
+                String.IsNullOrEmpty(Student.Firstname) || 
+                String.IsNullOrEmpty(Student.Lastname) || 
+                SelectedClassroom == null
+               )
             {
-                ClassPicker.Items.Add(cr.Name);
-                _classIndexes.Add(cr.Id);
+                await DisplayAlert("Warning", "Incomplete data", "Ok");
             }
+            else
+            {
+                Student.ClassroomId = _classIndexes[(int)SelectedClassroom];
+                MessagingCenter.Send(this, "AddStudent", Student);
+                MessagingCenter.Send(this, "UpdateStudents");
+                await Navigation.PopModalAsync();
+            }           
         }
     }
 }

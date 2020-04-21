@@ -23,5 +23,16 @@ namespace DBLite.Views
         {
             InitializeComponent();
         }
+
+        async void Delete_Clicked(object sender, EventArgs e)
+        {
+            bool answer = await DisplayAlert("Confirm", "Are you sure you want to remove student " + _vm.Student.Lastname + " from database?", "Yes", "No");
+            if (answer)
+            {
+                MessagingCenter.Send(this, "DeleteStudent", _vm.Student.Id);
+                MessagingCenter.Send(this, "UpdateStudents");
+                await Navigation.PopAsync();
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace DBLite.Views
         {
             InitializeComponent();
             MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
-            MessagingCenter.Subscribe<ListViewModel, string>(this,"ShowAlert",(sender, msg) => { DisplayAlert("Info", msg, "Ok"); });
+            MessagingCenter.Subscribe<ListViewModel, string>(this,"ShowAlert", (sender, msg) => { DisplayAlert("Info", msg, "Ok"); });
         }
 
         public async Task NavigateFromMenu(int id)

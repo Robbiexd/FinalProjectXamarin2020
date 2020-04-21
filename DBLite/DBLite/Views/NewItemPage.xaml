@@ -16,12 +16,6 @@
 
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="Id:" />
-            <Entry x:Name="IdEntry" BindingContext="{x:Reference Name=NewItemView}" Text="{Binding Student.Id}" Placeholder="adanovo">
-                <Entry.Behaviors>
-                    <behaviors:IsEmptyValidationBehavior />
-                </Entry.Behaviors>
-            </Entry>
             <Label Text="Firstname:" />
             <Entry BindingContext="{x:Reference Name=NewItemView}" Text="{Binding Student.Firstname}" Placeholder="Adam">
                 <Entry.Behaviors>
@@ -35,7 +29,7 @@
                 </Entry.Behaviors>
             </Entry>
             <Label Text="Classroom:" />
-            <Picker BindingContext="{x:Reference Name=NewItemView}" x:Name="ClassPicker" Title="Choose a Classroom"></Picker>
+            <Picker BindingContext="{x:Reference Name=NewItemView}" ItemsSource="{Binding Classes}" SelectedIndex="{Binding SelectedClassroom, Mode=TwoWay}" Title="Choose a Classroom"></Picker>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

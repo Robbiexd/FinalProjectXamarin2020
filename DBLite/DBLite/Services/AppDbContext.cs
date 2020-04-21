@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,25 +32,25 @@ namespace DBLite.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "P1", Name = "P1", Argb = Color.Red.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "P2", Name = "P2", Argb = Color.Pink.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "P3", Name = "P3", Argb = Color.DarkRed.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "P4", Name = "P4", Argb = Color.Salmon.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "L1", Name = "L1", Argb = Color.Blue.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "L2", Name = "L2", Argb = Color.LightBlue.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "L3", Name = "L3", Argb = Color.Navy.ToArgb() });
-            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = "L4", Name = "L4", Argb = Color.DarkBlue.ToArgb() });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "micbart", Firstname = "Michal", Lastname = "Barth", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "jirbiel", Firstname = "Jiří", Lastname = "Bielik", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "marcele", Firstname = "Martin", Lastname = "Čeleda", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "robhak", Firstname = "Robert", Lastname = "Hák", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "marhonz", Firstname = "Martin", Lastname = "Honzátko", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "pethora", Firstname = "Petr", Lastname = "Horák", ClassroomId = "P3" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "adaanto", Firstname = "Adam", Lastname = "Antoš", ClassroomId = "P2" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "marbaum", Firstname = "Marek", Lastname = "Baumann", ClassroomId = "P2" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "olibene", Firstname = "Oliver", Lastname = "Beneš", ClassroomId = "P2" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "ondbedn", Firstname = "Ondřej", Lastname = "Bednář", ClassroomId = "P2" });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = "matandr", Firstname = "Matěj", Lastname = "Andráško", ClassroomId = "P1" });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 1, Name = "P1", Argb = Color.Red.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 2, Name = "P2", Argb = Color.Pink.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 3, Name = "P3", Argb = Color.DarkRed.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 4, Name = "P4", Argb = Color.Salmon.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 5, Name = "L1", Argb = Color.Blue.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 6, Name = "L2", Argb = Color.LightBlue.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 7, Name = "L3", Argb = Color.Navy.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 8, Name = "L4", Argb = Color.DarkBlue.ToArgb() });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 1, Firstname = "Michal", Lastname = "Barth", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 2, Firstname = "Jiří", Lastname = "Bielik", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 3, Firstname = "Martin", Lastname = "Čeleda", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 4, Firstname = "Robert", Lastname = "Hák", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 5, Firstname = "Martin", Lastname = "Honzátko", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 6, Firstname = "Petr", Lastname = "Horák", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 7, Firstname = "Adam", Lastname = "Antoš", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 8, Firstname = "Marek", Lastname = "Baumann", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 9, Firstname = "Oliver", Lastname = "Beneš", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 10, Firstname = "Ondřej", Lastname = "Bednář", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 11, Firstname = "Matěj", Lastname = "Andráško", ClassroomId = 1 });
         }
 
         public async Task<bool> AddItemAsync(Student item)
@@ -80,7 +81,7 @@ namespace DBLite.Services
             }
         }
 
-        public async Task<bool> DeleteItemAsync(string id)
+        public async Task<bool> DeleteItemAsync(int id)
         {
             try
             {
@@ -99,7 +100,7 @@ namespace DBLite.Services
             }
         }
 
-        public async Task<Student> GetItemAsync(string id)
+        public async Task<Student> GetItemAsync(int id)
         {
             var student = await Students.Include(s => s.Classroom).FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
             return student;
@@ -107,7 +108,7 @@ namespace DBLite.Services
 
         public async Task<IEnumerable<Student>> GetItemsAsync(bool forceRefresh = false)
         {
-            var allStudents = await Students.Include(s => s.Classroom).ToListAsync();
+            var allStudents = await Students.Include(s => s.Classroom).OrderBy(s => s.Lastname).ToListAsync();
             return allStudents;
         }
 
@@ -139,7 +140,7 @@ namespace DBLite.Services
             }
         }
 
-        public async Task<bool> DeleteClassroomAsync(string id)
+        public async Task<bool> DeleteClassroomAsync(int id)
         {
             try
             {
@@ -158,7 +159,7 @@ namespace DBLite.Services
             }
         }
 
-        public async Task<Classroom> GetClassroomAsync(string id)
+        public async Task<Classroom> GetClassroomAsync(int id)
         {
             var classroom = await Classrooms.FirstOrDefaultAsync(s => s.Id == id).ConfigureAwait(false);
             return classroom;

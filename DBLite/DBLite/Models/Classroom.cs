@@ -10,7 +10,7 @@ namespace DBLite.Models
     public class Classroom
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public Int32 Argb
