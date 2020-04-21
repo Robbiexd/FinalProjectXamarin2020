@@ -72,3 +72,53 @@ async void Save_Clicked(object sender, EventArgs e)
         }
 ````
 Zároveň ověříme validitu dat. Protože jsme tuto stránku otevírali přes ``await Navigation.PushModalAsync(`` vracet se z ní budeme přes  ``await Navigation.PopModalAsync(); ``, která modální okno zavře. 
+
+## Zasílání zpráv
+
+Jak udělat zasílání dat a událostí mezi dvěma ViewModely nebo stránkami? Xamarin obsahuje mechanismus zasílání zpráv. Ten je vysvětlen zde:
+
+- https://montemagno.com/how-to-use-xamarinforms-messaging-center/
+- https://docs.microsoft.com/cs-cz/xamarin/xamarin-forms/app-fundamentals/messaging-center
+
+Ve zkratce:
+- na jedné straně odesíláme zprávu identifikovanou řetězcem a odesílatelem (stránka nebo ViewModel), můžeme k tomu přibalit i data:
+````
+MessagingCenter.Send<MainPage, string>(this, "IdentifikátorZprávy", "John");
+````
+- na druhé straně se někdo může k odebírání této zprávy přihlásit.
+````
+MessagingCenter.Subscribe<MainPage, Data> (this, "IdentifikátorZprávy", (sender, data) =>
+{
+    // zpracování dat
+});
+````
+Takto žádá o NewItemPage o přidání studenta do databáze a poté také o aktualizování seznamu studentů.
+````
+MessagingCenter.Send(this, "AddStudent", Student);
+MessagingCenter.Send(this, "UpdateStudents");
+````
+
+Obě zprávy zachytí [ListViewModel](../DBLite/ViewModels/ListViewModel.cs):
+````
+MessagingCenter.Subscribe<NewItemPage>(this, "UpdateStudents", (sender) =>
+{
+LoadCommand.Execute(null);
+});
+
+MessagingCenter.Subscribe<NewItemPage, Student>(this, "AddStudent", async (sender, student) =>
+{
+if (!await _db.AddItemAsync(student))
+    MessagingCenter.Send(this, "ShowAlert", "There was an error.");
+});
+````
+
+Z ListViewModelu je zasílána zpráva k zobrazení okna zobrazujícího informaci o chybě.
+````
+MessagingCenter.Send(this, "ShowAlert", "There was an error.");
+````
+Tu zachytává MainPage.cs
+````
+MessagingCenter.Subscribe<ListViewModel, string>(this,"ShowAlert", (sender, msg) => { DisplayAlert("Info", msg, "Ok"); });
+````
+
+# Přidávání studentů
