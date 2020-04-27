@@ -40,17 +40,23 @@ namespace DBLite.Services
             modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 6, Name = "L2", Argb = Color.LightBlue.ToArgb() });
             modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 7, Name = "L3", Argb = Color.Navy.ToArgb() });
             modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 8, Name = "L4", Argb = Color.DarkBlue.ToArgb() });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 1, Firstname = "Michal", Lastname = "Barth", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 2, Firstname = "Jiří", Lastname = "Bielik", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 3, Firstname = "Martin", Lastname = "Čeleda", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 4, Firstname = "Robert", Lastname = "Hák", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 5, Firstname = "Martin", Lastname = "Honzátko", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 6, Firstname = "Petr", Lastname = "Horák", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 7, Firstname = "Adam", Lastname = "Antoš", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 8, Firstname = "Marek", Lastname = "Baumann", ClassroomId = 2 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 9, Firstname = "Oliver", Lastname = "Beneš", ClassroomId = 2 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 10, Firstname = "Ondřej", Lastname = "Bednář", ClassroomId = 2 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 11, Firstname = "Matěj", Lastname = "Andráško", ClassroomId = 1 });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 9, Name = "E1A", Argb = Color.Green.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 10, Name = "E1B", Argb = Color.LightGreen.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 11, Name = "E1C", Argb = Color.DarkGreen.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 12, Name = "E2A", Argb = Color.Khaki.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 13, Name = "E2B", Argb = Color.DarkKhaki.ToArgb() });
+            modelBuilder.Entity<Classroom>().HasData(new Classroom { Id = 14, Name = "E2C", Argb = Color.Brown.ToArgb() });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 1, Firstname = "Adam", Lastname = "Antl", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 2, Firstname = "Bořivoj", Lastname = "Bonifác", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 3, Firstname = "Ctirad", Lastname = "Cvach", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 4, Firstname = "Daniela", Lastname = "Datlová", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 5, Firstname = "Eva", Lastname = "Eidamová", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 6, Firstname = "Filip", Lastname = "Fiala", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 7, Firstname = "Gisele", Lastname = "Grayová", ClassroomId = 10 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 8, Firstname = "Henrieta", Lastname = "Hozáková", ClassroomId = 8 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 9, Firstname = "Igor", Lastname = "Ivančák", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 10, Firstname = "Jiří", Lastname = "Janata", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 11, Firstname = "Karel", Lastname = "Kozák", ClassroomId = 1 });
         }
 
         public async Task<bool> AddItemAsync(Student item)

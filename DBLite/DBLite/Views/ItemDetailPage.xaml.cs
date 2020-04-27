@@ -34,5 +34,14 @@ namespace DBLite.Views
                 await Navigation.PopAsync();
             }
         }
+
+        async void Edit_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(
+                new NavigationPage(
+                    new EditItemPage()
+                )
+            );
+        }
     }
 }

@@ -7,7 +7,7 @@
     <item name="colorPrimary">@color/backgroundPrimary</item>
     <item name="android:textColorPrimary">@color/textApp</item>
     <item name="android:colorPrimaryDark">@color/backgroundDark</item>
-    <item name="android:colorAccent">@color/backgroundLight</item>
+    <item name="colorAccent">@color/backgroundLight</item>
     <item name="colorControlActivated">@color/backgroundLight</item>
     <item name="colorControlHighlight">@color/backgroundLight</item>
     <item name="android:windowBackground">@color/backgroundApp</item>
@@ -20,7 +20,7 @@
   </style>
 
   <style name="MyTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:windowBackground">@drawable/splashscreen</item>
+    <item name="android:windowBackground">@drawable/splashscreenlandscape</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
     <item name="android:windowContentOverlay">@null</item>

@@ -6,5 +6,5 @@
   <color name="backgroundDark">#8c0032</color>
   <color name="backgroundLight">#fa5788</color>
   <color name="backgroundApp">#ffffff</color>
-  <color name="backgroundSplash">#c2185b</color>
+  <color name="backgroundSplash">#ffffff</color>
 </resources>
