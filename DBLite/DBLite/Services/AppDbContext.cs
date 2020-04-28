@@ -51,12 +51,14 @@ namespace DBLite.Services
             modelBuilder.Entity<Student>().HasData(new Student { Id = 3, Firstname = "Ctirad", Lastname = "Cvach", ClassroomId = 3 });
             modelBuilder.Entity<Student>().HasData(new Student { Id = 4, Firstname = "Daniela", Lastname = "Datlová", ClassroomId = 3 });
             modelBuilder.Entity<Student>().HasData(new Student { Id = 5, Firstname = "Eva", Lastname = "Eidamová", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 6, Firstname = "Filip", Lastname = "Fiala", ClassroomId = 3 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 7, Firstname = "Gisele", Lastname = "Grayová", ClassroomId = 10 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 6, Firstname = "František", Lastname = "Fiala", ClassroomId = 3 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 7, Firstname = "Greta", Lastname = "Grayová", ClassroomId = 10 });
             modelBuilder.Entity<Student>().HasData(new Student { Id = 8, Firstname = "Henrieta", Lastname = "Hozáková", ClassroomId = 8 });
             modelBuilder.Entity<Student>().HasData(new Student { Id = 9, Firstname = "Igor", Lastname = "Ivančák", ClassroomId = 2 });
-            modelBuilder.Entity<Student>().HasData(new Student { Id = 10, Firstname = "Jiří", Lastname = "Janata", ClassroomId = 2 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 10, Firstname = "Jiří", Lastname = "Jonáš", ClassroomId = 2 });
             modelBuilder.Entity<Student>().HasData(new Student { Id = 11, Firstname = "Karel", Lastname = "Kozák", ClassroomId = 1 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 12, Firstname = "Libor", Lastname = "Louda", ClassroomId = 8 });
+            modelBuilder.Entity<Student>().HasData(new Student { Id = 13, Firstname = "Martin", Lastname = "Malý", ClassroomId = 9 });
         }
 
         public async Task<bool> AddItemAsync(Student item)

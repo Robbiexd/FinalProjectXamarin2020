@@ -8,6 +8,7 @@
              x:Class="DBLite.Views.MenuPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
+            <Label Text="Students of our school" FontSize="30" Padding="5" />
             <ListView x:Name="ListViewMenu" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -37,7 +37,9 @@ namespace DBLite.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new DetailViewModel(item)));
+            _vm.LoadClassesCommand.Execute(null);
+
+            await Navigation.PushAsync(new ItemDetailPage(new DetailViewModel(item, _vm.Classrooms)));
 
             ItemsListView.SelectedItem = null;
         }

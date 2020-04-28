@@ -3,13 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:DBLite.ViewModels"
              mc:Ignorable="d"
+             Title="{Binding Title}"
+             xmlns:behaviors="clr-namespace:DBLite.Views.Behaviors"
              x:Class="DBLite.Views.EditItemPage">
+    <ContentPage.BindingContext>
+        <viewmodels:EditViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Firstname:" />
+            <Entry Text="{Binding Student.Firstname, Mode=TwoWay}" Placeholder="Adam">
+                <Entry.Behaviors>
+                    <behaviors:IsEmptyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Lastname:" />
+            <Entry Text="{Binding Student.Lastname, Mode=TwoWay}" Placeholder="Novotný">
+                <Entry.Behaviors>
+                    <behaviors:IsEmptyValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Classroom:" />
+            <Picker ItemsSource="{Binding ClassroomNames}" SelectedIndex="{Binding SelectedClassroomIndex, Mode=TwoWay}" Title="Choose a Classroom"></Picker>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -39,7 +39,7 @@ namespace DBLite.Views
         {
             await Navigation.PushModalAsync(
                 new NavigationPage(
-                    new EditItemPage()
+                    new EditItemPage(new EditViewModel(_vm.Student, _vm.Classrooms))
                 )
             );
         }
