@@ -24,6 +24,7 @@ namespace DBLite.Views
             InitializeComponent();
         }
 
+
         async void Delete_Clicked(object sender, EventArgs e)
         {
             bool answer = await DisplayAlert("Confirm", "Are you sure you want to remove student " + _vm.Student.Lastname + " from database?", "Yes", "No");
@@ -42,6 +43,16 @@ namespace DBLite.Views
                     new EditItemPage(new EditViewModel(_vm.Student, _vm.Classrooms))
                 )
             );
+        }
+
+        async void SendEmail_Clicked(object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri _vm.Student));
+        }
+
+        async void MakeAPhoneCall_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
