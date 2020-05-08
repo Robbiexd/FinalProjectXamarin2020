@@ -45,14 +45,14 @@ namespace DBLite.Views
             );
         }
 
-        async void SendEmail_Clicked(object sender, EventArgs e)
-        {
-            Device.OpenUri(new Uri _vm.Student));
-        }
+        //async void SendEmail_Clicked(object sender, EventArgs e)
+        //{
+        //    Device.OpenUri(new Uri _vm.Student));
+        //}
 
-        async void MakeAPhoneCall_Clicked(object sender, EventArgs e)
-        {
+        //async void MakeAPhoneCall_Clicked(object sender, EventArgs e)
+        //{
 
-        }
+        //}
     }
 }

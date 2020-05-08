@@ -24,10 +24,10 @@ namespace DBLite.Models
         public string Lastname { get { return _lastname; } set { _lastname = value; NotifyPropertyChanged(); } }
         [Required]
         public int ClassroomId { get { return _classroomId; } set { _classroomId = value; NotifyPropertyChanged(); NotifyPropertyChanged("Classroom"); } }
-        [Required]
-        public string Email { get { return _email; } set { _email = value; NotifyPropertyChanged(); } }
-        [Required]
-        public string PhoneNumber { get { return _phoneNumber; } set { _phoneNumber = value; NotifyPropertyChanged(); } }
+        //[Required]
+        //public string Email { get { return _email; } set { _email = value; NotifyPropertyChanged(); } }
+        //[Required]
+        //public string PhoneNumber { get { return _phoneNumber; } set { _phoneNumber = value; NotifyPropertyChanged(); } }
         public Classroom Classroom { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
